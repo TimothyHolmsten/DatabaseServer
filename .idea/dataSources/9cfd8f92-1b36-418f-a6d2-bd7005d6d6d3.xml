@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="pricevision@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="pricevision">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="Gruppinl3"/>
+    <schema id="4" parent="1" name="information_schema"/>
+    <schema id="5" parent="1" name="JavaWebShop"/>
+    <schema id="6" parent="1" name="labb1_databas"/>
+    <schema id="7" parent="1" name="Library"/>
+    <schema id="8" parent="1" name="mysql"/>
+    <schema id="9" parent="1" name="performance_schema"/>
+    <schema id="10" parent="1" name="SUlab1"/>
+    <schema id="11" parent="1" name="sys"/>
+    <table id="12" parent="2" name="Category"/>
+    <table id="13" parent="2" name="Image"/>
+    <table id="14" parent="2" name="ImageCategory"/>
+    <column id="15" parent="12" name="category">
+      <Position>1</Position>
+      <DataType>varchar(64)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="16" parent="12" name="categoryId">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <index id="17" parent="12" name="Category_category_uindex">
+      <ColNames>category</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="18" parent="12" name="PRIMARY">
+      <ColNames>categoryId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="19" parent="12" name="Category_category_uindex">
+      <ColNames>category</ColNames>
+      <UnderlyingIndexName>Category_category_uindex</UnderlyingIndexName>
+    </key>
+    <column id="20" parent="13" name="imageId">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="21" parent="13" name="imagePath">
+      <Position>2</Position>
+      <DataType>varchar(256)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="22" parent="13" name="Image_imagePath_uindex">
+      <ColNames>imagePath</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="23" parent="13" name="PRIMARY">
+      <ColNames>imageId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="24" parent="13" name="Image_imagePath_uindex">
+      <ColNames>imagePath</ColNames>
+      <UnderlyingIndexName>Image_imagePath_uindex</UnderlyingIndexName>
+    </key>
+    <column id="25" parent="14" name="categoryId">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="14" name="imageId">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="14" name="id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <index id="28" parent="14" name="ImageCategory_Category_categoryId_fk">
+      <ColNames>categoryId</ColNames>
+    </index>
+    <index id="29" parent="14" name="ImageCategory_Image_imageId_fk">
+      <ColNames>imageId</ColNames>
+    </index>
+    <key id="30" parent="14" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="31" parent="14" name="ImageCategory_Category_categoryId_fk">
+      <ColNames>categoryId</ColNames>
+      <RefSchemaName>pricevision</RefSchemaName>
+      <RefTableName>Category</RefTableName>
+      <RefColNames>categoryId</RefColNames>
+    </foreign-key>
+    <foreign-key id="32" parent="14" name="ImageCategory_Image_imageId_fk">
+      <ColNames>imageId</ColNames>
+      <RefSchemaName>pricevision</RefSchemaName>
+      <RefTableName>Image</RefTableName>
+      <RefColNames>imageId</RefColNames>
+    </foreign-key>
+  </database-model>
+</dataSource>
