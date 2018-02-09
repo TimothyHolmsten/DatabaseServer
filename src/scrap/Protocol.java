@@ -1,3 +1,5 @@
+package scrap;
+
 /**
  * Created by timothy on 2018-01-25, PACKAGE_NAME.
  */

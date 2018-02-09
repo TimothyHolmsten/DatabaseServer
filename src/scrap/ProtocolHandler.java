@@ -1,3 +1,5 @@
+package scrap;
+
 import java.net.Socket;
 
 /**

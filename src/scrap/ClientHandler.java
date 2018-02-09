@@ -1,4 +1,10 @@
+package scrap;
+
+import com.sun.tools.doclets.internal.toolkit.util.DocFinder;
+
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 
 /**
@@ -26,7 +32,14 @@ public class ClientHandler extends Thread implements Runnable {
     public void run() {
         try {
             InputStream inputStream = socket.getInputStream();
-            try {
+            OutputStream out = new FileOutputStream("/Users/timothy/IdeaProjects/DatabaseServer/src/images/file.zip");
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1)
+                out.write(buffer, 0, bytesRead);
+            out.close();
+
+            /*try {
                 byte[] buffer = new byte[32];
                 int length = inputStream.read(buffer);
                 System.out.println(length);
@@ -34,17 +47,17 @@ public class ClientHandler extends Thread implements Runnable {
                 System.out.println(message);
                 String[] splitMessage = message.split(" ");
 
-                Protocol protocol = Protocol.valueOf(splitMessage[0]);
+                scrap.Protocol protocol = scrap.Protocol.valueOf(splitMessage[0]);
                 String arg = "";
                 if (splitMessage.length > 1) {
                     arg = splitMessage[1];
                 }
-                ProtocolHandler.handleProtocolMessage(socket, protocol, arg);
+                scrap.ProtocolHandler.handleProtocolMessage(socket, protocol, arg);
             } catch (Exception e) {
                 sendResendMessage(socket);
             }
             String ok = "OK\n";
-            socket.getOutputStream().write(ok.getBytes());
+            socket.getOutputStream().write(ok.getBytes());*/
             socket.close();
 
         } catch (Exception e) {

@@ -36,14 +36,54 @@ public class Database {
         if (affectedRows == 0)
             throw new SQLException("No rows affected");
 
-        return preparedStatement.getGeneratedKeys().getInt(1);
+        int id = -1;
+        ResultSet rs = preparedStatement.getGeneratedKeys();
+        if (rs.next())
+            id = rs.getInt(1);
+        rs.close();
+        preparedStatement.close();
+
+        return id;
+    }
+
+    public String getImagePath(int id) throws Exception {
+        String imagePath = "";
+        try {
+            ResultSet rs;
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("SELECT imagePath FROM Image WHERE imageId = ?");
+            preparedStatement.setInt(1, id);
+
+            rs = preparedStatement.executeQuery();
+
+            if (rs.next())
+                imagePath = rs.getString(1);
+
+            rs.close();
+            preparedStatement.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (imagePath.length() > 0)
+            return imagePath;
+        throw new Exception("No image found");
     }
 
     public void startTransaction() {
-
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void endTransaction() {
-
+        try {
+            connection.commit();
+            connection.setAutoCommit(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
