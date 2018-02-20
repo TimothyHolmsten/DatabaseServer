@@ -16,7 +16,7 @@ public class ImageGrabber {
         InputStream is = url.openStream();
 
         BufferedImage image = ImageIO.read(is);
-        ImageIO.write(image, "jpg", new File(destinationFile));
+        ImageIO.write(image, "jpeg", new File(destinationFile));
 
         is.close();
 

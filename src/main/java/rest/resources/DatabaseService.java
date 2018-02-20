@@ -12,6 +12,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.sql.SQLException;
 
 /**
@@ -27,12 +28,12 @@ public class DatabaseService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response uploadImage(@QueryParam("URL") String url, @QueryParam("UUID") String uuid) {
         // Rewrite this to save on {root}/web/images/{uuid}.jpg
-        String destinationUrl = "/Users/timothy/IdeaProjects/DatabaseServer/web/images/" + uuid + ".jpg";
+        String destinationUrl = "/Users/timothy/IdeaProjects/DatabaseServer/web/images/" + uuid;
         try {
             ImageGrabber.saveImage(url, destinationUrl);
             Database database = new Database();
             int id = database.insertImagePath(destinationUrl);
-            Image image = new Image(database.getImagePath(id), uuid);
+            Image image = new Image("http://130.229.171.21:8080/images/" + uuid, uuid);
             String json = gson.toJson(image);
 
             return Response.ok(json, MediaType.APPLICATION_JSON).build();
